@@ -27,8 +27,8 @@ node {
         
         }
         stage("Create Snap"){
-            sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py 'devops-rds-staging' 'arn:aws:iam::475194349913:role/zebrax-SnapshotDB-staging'"
-            // sh "/Users/RichardMatthew/miniconda3/bin/python3 -c 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
+            // sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py 'devops-rds-staging' 'arn:aws:iam::475194349913:role/zebrax-SnapshotDB-staging'"
+              sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 -u 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
         }
               
             
