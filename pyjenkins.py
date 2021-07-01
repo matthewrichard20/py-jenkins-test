@@ -94,15 +94,25 @@ def createSnapFull(dbName) :
             
     return (response1,response2)
 
-def createSnap(dbName) :
+def createSnap(dbName,iamRole) :
 #     dbName = 'sharedprojects'
+    sts_client_rds = boto3.client('sts')
+    assumed_role=sts_client_rds.assume_role(
+        RoleArn=iamRole, RoleSessionName="AWSCLI")
+    credentials2 = assumed_role['Credentials']
+
+    client_rds = boto3.client('rds', region_name='ap-southeast-1',
+        aws_access_key_id=credentials2['AccessKeyId'],
+        aws_secret_access_key=credentials2['SecretAccessKey'],
+        aws_session_token=credentials2['SessionToken'],
+    )
+
     datetoday = datetime.datetime.today()
     dateStr = datetoday.strftime("%Y%m%d%H%M%S")
     snapIdentifier = dbName + '-' + dateStr
     response1 = client_rds.create_db_snapshot(
         DBSnapshotIdentifier=snapIdentifier,
-        DBInstanceIdentifier=dbName,
-        Tags= addTag(dbName)
+        DBInstanceIdentifier=dbName
     )
     print(response1)
 #     snapshot_id = response1["SnapshotId"]
@@ -155,8 +165,8 @@ def exportSnap(exportTaskIdentifier) :
     response2 = client_rds.start_export_task(
         ExportTaskIdentifier=(dbName +'-s3-snapshot-' +dateStr),
         SourceArn='arn:aws:rds:ap-southeast-1:475194349913:snapshot:sharedprojects-20210625111128',
-        S3BucketName='zx-backup-db',
-        IamRoleArn='arn:aws:iam::475194349913:role/s3-rds-export-snapshot-role',
+        S3BucketName='zx-backup-db-staging',
+        IamRoleArn='arn:aws:iam::475194349913:role/zebrax-SnapshotDB-staging',
         KmsKeyId= 'arn:aws:kms:ap-southeast-1:475194349913:key/f6ff887a-facc-4d70-9770-5cd84a975ed9',
         S3Prefix=dbName + '/' + dateStr[:8],
     )
