@@ -1,18 +1,18 @@
 pipeline{
     agent any
     parameters {
-        string(name: 'dbName', defaultValue: 'devops-rds-staging', description: '')
+        string(name: 'dbName', defaultValue: 'devops-rds-staging2', description: '')
         password(name: 'snapRole', defaultValue: 'SECRET', description: '')
     }
     stages {
-        stage ("Git pull") {
-            steps{
-                sh "cd py-jenkins-test && ls && git pull"
-            }
-        }
+        // stage ("Git pull") {
+        //     steps{
+        //         sh "cd py-jenkins-test && ls && git pull"
+        //     }
+        // }
         stage("Create Snap"){
             steps{
-                sh "ls && cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
+                sh "ls && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
             //   sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 -u 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
             }
         }
