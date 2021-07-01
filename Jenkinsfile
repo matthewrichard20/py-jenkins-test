@@ -1,8 +1,8 @@
 pipeline{
     agent any
     parameters {
-        string(name: 'dbName', defaultValue: 'devops-rds-staging2', description: '')
-        password(name: 'snapRole', defaultValue: 'SECRET', description: '')
+        string(name: 'dbName')//, defaultValue: 'devops-rds-staging2', description: '')
+        password(name: 'snapRole')//, defaultValue: 'SECRET', description: '')
     }
     stages {
         // stage ("Git pull") {
