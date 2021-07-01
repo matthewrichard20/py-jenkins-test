@@ -18,7 +18,7 @@ print(f"Arguments of the script : {sys.argv[2]=}")
 f = open("identifier.txt", "r")
 
 exportTaskIdentifier =f.read()
-
+exportTaskIdentifier = "devops-rds-staging2-20210701184811"
 
 sts_client_rds = boto3.client('sts')
 assumed_role=sts_client_rds.assume_role(
@@ -38,7 +38,7 @@ response2 = client_rds.start_export_task(
         SourceArn='arn:aws:rds:ap-southeast-1:475194349913:snapshot:' + exportTaskIdentifier,
         S3BucketName='zx-backup-db-staging',
         IamRoleArn=sys.argv[2],
-        KmsKeyId= sys.argv[3],
+        KmsKeyId= "arn:aws:kms:ap-southeast-1:475194349913:key/f6ff887a-facc-4d70-9770-5cd84a975ed9",
         S3Prefix=dbName + '/' + dateStr[:8],
     )
 complete = 0
