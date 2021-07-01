@@ -6,12 +6,15 @@ pipeline{
     }
     stages {
         stage ("Git pull") {
-            sh "cd py-jenkins-test && ls && git pull"
-        
+            steps{
+                sh "cd py-jenkins-test && ls && git pull"
+            }
         }
         stage("Create Snap"){
-            sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
+            steps{
+                sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
             //   sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 -u 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
+            }
         }
     }    
 }
