@@ -23,7 +23,7 @@
 node {
     // withCredentials([string(credentialsId: 'dbName', variable: 'dbName'), string(credentialsId: 'snapRole', variable: 'IAMKey'),string(credentialsId: 'zebrax-cmk-sym-prod', variable: 'kmsKey')]) { //set SECRET with the credential content
         stage ("Git Clone") {
-            sh "git pull"
+            sh "git clone https://github.com/matthewrichard20/py-jenkins-test.git"
         
         }
         stage("Create Snap"){
