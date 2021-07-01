@@ -4,7 +4,7 @@ pipeline{
         string(name: 'dbName')//, defaultValue: 'devops-rds-staging2', description: '')
         password(name: 'snapRole')//, defaultValue: 'SECRET', description: '')
         password(name: 'exportRole')
-        password(name: 'zebrax-cmk-sym-prod')
+        password(name: 'cmk')
     }
     stages {
         // stage ("Git pull") {
@@ -21,7 +21,7 @@ pipeline{
 
         stage("export snap"){
             steps{
-                sh "/Users/RichardMatthew/miniconda3/bin/python3 exportSnap.py ${params.snapRole} ${params.exportRole} ${params.zebrax-cmk-sym-prod}"
+                sh "/Users/RichardMatthew/miniconda3/bin/python3 exportSnap.py ${params.snapRole} ${params.exportRole} ${params.cmk}"
             }
         }
     }    
