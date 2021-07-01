@@ -21,23 +21,14 @@ dbVariables.name = "Intern Instance 2"
 remote.host = "54.255.128.73"
 remote.allowAnyHosts = true
 node {
-    withCredentials([string(credentialsId: 'dbName', variable: 'dbName')]) { //set SECRET with the credential content
-        echo "My secret text is '${dbName}'"
-        dbVariables.name = ${dbName}
-
-        withCredentials([string(credentialsId: 'snapRole', variable: 'IAMKey')]) { //set SECRET with the credential content
-            echo "My secret text is '${IAMKey}'"
-            dbVariables.keys = ${IAMKey}
-
-            withCredentials([string(credentialsId: 'zebrax-cmk-sym-prod', variable: 'kmsKey')]) { //set SECRET with the credential content
-                echo "My secret text is '${kmsKey}'"
-                dbVariables.keys = ${kmsKey}
-                stage("Create Snap"){
-                    sh "/Users/RichardMatthew/miniconda3/bin/python3 -c 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
-                }
-                
-            }
+    withCredentials([string(credentialsId: 'dbName', variable: 'dbName'), string(credentialsId: 'snapRole', variable: 'IAMKey'),string(credentialsId: 'zebrax-cmk-sym-prod', variable: 'kmsKey')]) { //set SECRET with the credential content
+       
+        stage("Create Snap"){
+            sh "/Users/RichardMatthew/miniconda3/bin/python3 -c 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
         }
+                
+            
+        
     } 
 
 
