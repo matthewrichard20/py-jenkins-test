@@ -22,12 +22,12 @@
 // remote.allowAnyHosts = true
 node {
     // withCredentials([string(credentialsId: 'dbName', variable: 'dbName'), string(credentialsId: 'snapRole', variable: 'IAMKey'),string(credentialsId: 'zebrax-cmk-sym-prod', variable: 'kmsKey')]) { //set SECRET with the credential content
-        stage ("Git Clone") {
-            sh "git clone https://github.com/matthewrichard20/py-jenkins-test.git"
+        stage ("Git pull") {
+            sh "git pull"
         
         }
         stage("Create Snap"){
-            sh "/Users/RichardMatthew/miniconda3/bin/python3 createSnap.py 'devops-rds-staging' 'arn:aws:iam::475194349913:role/zebrax-SnapshotDB-staging'"
+            sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py 'devops-rds-staging' 'arn:aws:iam::475194349913:role/zebrax-SnapshotDB-staging'"
             // sh "/Users/RichardMatthew/miniconda3/bin/python3 -c 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
         }
               
