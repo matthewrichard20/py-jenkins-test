@@ -3,6 +3,8 @@ pipeline{
     parameters {
         string(name: 'dbName')//, defaultValue: 'devops-rds-staging2', description: '')
         password(name: 'snapRole')//, defaultValue: 'SECRET', description: '')
+        password(name: 'exportRole')
+        password(name: 'zebrax-cmk-sym-prod')
     }
     stages {
         // stage ("Git pull") {
@@ -14,6 +16,12 @@ pipeline{
             steps{
                 sh "ls && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
             //   sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 -u 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
+            }
+        }
+
+        stage("export snap"){
+            steps{
+                sh "/Users/RichardMatthew/miniconda3/bin/python3 exportSnap.py ${params.snapRole} ${params.exportRole} ${params.zebrax-cmk-sym-prod}"
             }
         }
     }    
