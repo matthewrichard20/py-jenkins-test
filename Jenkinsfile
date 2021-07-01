@@ -24,9 +24,10 @@ node {
     withCredentials([string(credentialsId: 'dbName', variable: 'dbName'), string(credentialsId: 'snapRole', variable: 'IAMKey'),string(credentialsId: 'zebrax-cmk-sym-prod', variable: 'kmsKey')]) { //set SECRET with the credential content
        
         stage("Create Snap"){
-            sh "/Users/RichardMatthew/miniconda3/bin/python3 -c 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
+            sh "/Users/RichardMatthew/miniconda3/bin/python3 createSnap.py '${dbName}' '${IAMKey}'"
+            // sh "/Users/RichardMatthew/miniconda3/bin/python3 -c 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
         }
-                
+              
             
         
     } 
