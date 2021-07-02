@@ -18,7 +18,7 @@ print(f"Arguments of the script : {sys.argv[2]=}")
 f = open("identifier.txt", "r")
 
 exportTaskIdentifier =f.read()
-exportTaskIdentifier = "devops-rds-staging2-20210701184811"
+# exportTaskIdentifier = "devops-rds-staging2-20210701184811"
 
 sts_client_rds = boto3.client('sts')
 assumed_role=sts_client_rds.assume_role(
