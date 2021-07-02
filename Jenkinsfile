@@ -12,12 +12,12 @@ pipeline{
         //         sh "cd py-jenkins-test && ls && git pull"
         //     }
         // }
-        // stage("Create Snap"){
-        //     steps{
-        //         sh "ls && /Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
-        //     //   sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 -u 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
-        //     }
-        // }
+        stage("Create Snap"){
+            steps{
+                sh "/Users/RichardMatthew/miniconda3/bin/python3 createSnap.py ${params.dbName} ${params.snapRole} "
+            //   sh "cd py-jenkins-test && /Users/RichardMatthew/miniconda3/bin/python3 -u 'import pyjenkins; pyjenkins.createSnap(${dbName},${IAMKey})' "
+            }
+        }
 
         stage("export snap"){
             steps{

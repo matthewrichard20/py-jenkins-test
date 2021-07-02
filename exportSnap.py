@@ -18,8 +18,8 @@ print(f"Arguments of the script : {sys.argv[3]=}")
 
 f = open("identifier.txt", "r")
 
-# exportTaskIdentifier =f.read()
-exportTaskIdentifier = "devops-rds-staging2-20210702122211"
+exportTaskIdentifier_temp =f.read()
+exportTaskIdentifier = exportTaskIdentifier_temp.strip()
 
 sts_client_rds = boto3.client('sts')
 assumed_role=sts_client_rds.assume_role(
@@ -64,4 +64,4 @@ while not(complete):
                 print(o['Status'] , " ", complete)
     time.sleep(120)
 
-print ("export Snap ", snapIdentifier, " is completed")
+print ("export Snap ", exportTaskIdentifier, " is completed")
